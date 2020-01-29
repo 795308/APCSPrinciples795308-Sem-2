@@ -1,8 +1,8 @@
-//  Your Name
-// 	Date or version number
+//  Nico McCarten
+// 	1/28/20
 //  This is a comment
 //  The setup function function is called once when your program begins
-var boids = []
+var boids = []//array for boids
 function setup() {
   var cnv = createCanvas(800, 800);
   cnv.position((windowWidth-width)/2, 30);
@@ -27,4 +27,4 @@ function runBoids(){
   for(var i = 0; i < boids.length; i++){
     boids[i].run();
   }
-}
+}//runs all boids in array
