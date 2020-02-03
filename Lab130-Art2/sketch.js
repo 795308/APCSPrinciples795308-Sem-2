@@ -1,5 +1,5 @@
 //  Nico McCarten
-// 	1/28/20
+// 	2/3/20
 //  This is a comment
 //  The setup function function is called once when your program begins
 var boids = []//array for boids

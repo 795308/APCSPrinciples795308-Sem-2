@@ -56,14 +56,23 @@ class Boid{
   render(){
     stroke(this.clr);
     var distToBoid;//creates variable distToBoid
-    for(var i = 0; i < boids.length; i++){//goes through list of boids
-      if(this.id === 0 || this.id === 1){
-        line(this.loc.x, this.loc.y, boids[2].loc.x, boids[2].loc.y);
-        line(this.loc.x, this.loc.y, boids[3].loc.x, boids[3].loc.y);
-      }else if (this.id === 2 || this.id === 3) {
-        line(this.loc.x, this.loc.y, boids[0].loc.x, boids[0].loc.y);
-        line(this.loc.x, this.loc.y, boids[1].loc.x, boids[1].loc.y);
+      for(var i = 0; i < boids.length; i++){//goes through list of boids
+        distToBoid = this.loc.dist(boids[i].loc);
+        if(this.id === 0 || this.id === 1){
+          if(i === 2 && distToBoid < 400){
+            line(this.loc.x, this.loc.y, boids[2].loc.x, boids[2].loc.y);
+          }
+          if(i === 3 && distToBoid < 400){
+            line(this.loc.x, this.loc.y, boids[3].loc.x, boids[3].loc.y);
+          }
+        }else if (this.id === 2 || this.id === 3) {
+          if(i === 0 && distToBoid < 400){
+            line(this.loc.x, this.loc.y, boids[0].loc.x, boids[0].loc.y);
+          }
+          if(i === 1 && distToBoid < 400){
+            line(this.loc.x, this.loc.y, boids[1].loc.x, boids[1].loc.y);
+          }
+        }
       }
-    }
   }//render end
 }
