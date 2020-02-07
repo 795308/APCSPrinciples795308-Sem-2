@@ -7,14 +7,24 @@ function setup() {
   cnv.position((windowWidth-width)/2, 30);
   background(5, 5, 5);
   fill(200, 30, 150);
+  loadStats();
   createPlayerSelectionList();
 
 
 }
 
+function draw() {
+  getSelectedPlayers();
+  loadPlayerStats(chosenPlayers);
+}
+
 function createPlayerSelectionList() {
-  playerSel = createSelect(true); playerSel.position((windowWidth-width)/2 + 270, (windowHeight-height)/2 + 40); // locate at 270,40 in canvas coordinates
-  playerSel.size(150, headerHeight-50);
+  playerSel = createSelect(true);
+  playerSel.position((windowWidth-width)/2, (windowHeight-height)/2); // locate at 270,40 in canvas coordinates
+  playerSel.size(150, 100);
+  for(var i = 0; i < players.length; i++){
+    playerSel.option(players[i]);
+  }
 }
 
 // abstract the UI control away, put the chosen player(s) in the array chosenPlayers
