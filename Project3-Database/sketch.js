@@ -17,10 +17,11 @@ function setup() {
 
 function draw() {
   getSelectedPlayers();
+  getSelectedStat();
   for(var i = 0; i < chosenPlayers.length; i++){
     loadPlayerStats(chosenPlayers[i]);
   }
-  aggregateStats();
+  aggregateStats(chosenStat[0]);
 }
 
 function createPlayerSelectionList() {
@@ -50,8 +51,13 @@ function getSelectedPlayers() {
 }
 
 function getSelectedStat(){
+  chosenStat = [];
   for(var i = 0; i < statSel.elt.selectedOptions.length; i++){
-    
+    for(var j = 0; j < statNames.length ; j++){
+      if(statSel.elt.selectedOptions[i].value === statNames[j]){
+        chosenStat.push(j);
+      }
+    }
   }
 }
 
@@ -66,9 +72,9 @@ function loadPlayerStats(player) {
 }
 
 // collect stats into arrays for generic approach to graphing
-function aggregateStats(player, stat){
+function aggregateStats(stat){
   results = [];
   for(var i = 0; i<statsArray.length; i++) {
-    results.push(statsArray[i].get(6));
+    results.push(statsArray[i].get(stat));
   }
 }
