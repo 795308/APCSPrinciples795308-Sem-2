@@ -22,6 +22,9 @@ function draw() {
     loadPlayerStats(chosenPlayers[i]);
   }
   aggregateStats(chosenStat[0]);
+  stringConverter();
+  getSmallest();
+  getLargest();
 }
 
 function createPlayerSelectionList() {
@@ -76,5 +79,29 @@ function aggregateStats(stat){
   results = [];
   for(var i = 0; i<statsArray.length; i++) {
     results.push(statsArray[i].get(stat));
+  }
+}
+
+function getSmallest(){
+  smallest = results[0];
+  for(var i = 0; i < results.length; i++){
+    if (smallest > results[i]) {
+      smallest = results[i];
+    }
+  }
+}
+
+function getLargest(){
+  largest = results[0];
+  for(var i = 0; i < results.length; i++){
+    if (largest < results[i]) {
+      largest = results[i];
+    }
+  }
+}
+
+function stringConverter(){
+  for(var i = 0; i < results.length; i++){
+    results[i] = parseInt(results[i], 10);
   }
 }
