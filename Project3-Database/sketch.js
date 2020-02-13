@@ -16,16 +16,18 @@ function setup() {
 }
 
 function draw() {
+  background(5,5,5)
   getSelectedPlayers();
   getSelectedStat();
   for(var i = 0; i < chosenPlayers.length; i++){
     loadPlayerStats(chosenPlayers[i]);
   }
   aggregateStats(chosenStat[0]);
+  getYears();
   stringConverter();
   getSmallest();
   getLargest();
-
+  graph();
 }
 
 function createPlayerSelectionList() {
@@ -83,6 +85,13 @@ function aggregateStats(stat){
   }
 }
 
+function getYears(){
+  years = [];
+  for(var i = 0; i<statsArray.length; i++) {
+    years.push(statsArray[i].get(1));
+  }
+}
+
 function getSmallest(){
   smallest = results[0];
   for(var i = 0; i < results.length; i++){
@@ -108,7 +117,18 @@ function stringConverter(){
 }
 
 function graph(){
+  var x1, y1, x2, y2;
   for(var i = 0; i < results.length; i++){
-    y = map(values[i], smallest, largest, 0, drawAreaHeight);
+    x1 = i*(width-100)/results.length + 50
+    y1 = map(results[i], smallest, largest, 250, 750);
+    x2 = (i+1)*(width-100)/results.length + 50
+    y2 = map(results[i+1], smallest, largest, 250, 750);
+    stroke(255, 255, 255);
+    line(x1, y1, x2, y2);
+    fill(0, 0, 255);
+    ellipse(x1, y1, 5, 5);
+    textSize(16)
+    textAlign(CENTER, BOTTOM);
+    text(years[i], x1, 800);
   }
 }
