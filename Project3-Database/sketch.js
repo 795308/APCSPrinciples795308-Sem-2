@@ -25,6 +25,7 @@ function draw() {
   stringConverter();
   getSmallest();
   getLargest();
+
 }
 
 function createPlayerSelectionList() {
@@ -103,5 +104,11 @@ function getLargest(){
 function stringConverter(){
   for(var i = 0; i < results.length; i++){
     results[i] = parseInt(results[i], 10);
+  }
+}
+
+function graph(){
+  for(var i = 0; i < results.length; i++){
+    y = map(values[i], smallest, largest, 0, drawAreaHeight);
   }
 }
