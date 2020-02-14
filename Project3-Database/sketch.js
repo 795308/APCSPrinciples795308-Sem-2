@@ -1,5 +1,5 @@
 //  Nico McCarten
-// 	2/6/20
+// 	2/14/20
 //  This is a comment
 //  The setup function function is called once when your program begins
 var statsArray = [];
