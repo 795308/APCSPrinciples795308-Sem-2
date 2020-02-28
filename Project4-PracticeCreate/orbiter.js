@@ -16,6 +16,8 @@ class Orbiter{
     this.time = this.time + 0.05;
   }
   render(){
+    fill(this.clr);
+    ellipse(this.loc.x, this.loc.y, 10, 10);
     stroke(this.clr);
     var distToBoid;//creates variable distToBoid
     for(var i = 0; i < boids.length; i++){//goes through list of boids
