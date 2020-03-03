@@ -34,7 +34,7 @@ class Boid{
   update(){
     var distToMainball;
     distToMainball = this.loc.dist(mainBall.loc);
-    if(distToMainball < 100000){
+    if(distToMainball < 250){
       //add attraction
       this.acc = p5.Vector.sub(mainBall.loc, this.loc);
       this.acc.normalize();
@@ -46,10 +46,10 @@ class Boid{
       this.acc.normalize();
       this.acc.mult(0.5);
     }
-    // if(distToMainball > 250){
-    //   this.acc.x = random(-1, 1);
-    //   this.acc.y = random(-1, 1);
-    // }
+    if(distToMainball > 250){
+      this.acc.x = random(-1, 1);
+      this.acc.y = random(-1, 1);
+    }
     this.vel.add(this.acc);
     this.loc.add(this.vel);
     this.vel.limit(5);
