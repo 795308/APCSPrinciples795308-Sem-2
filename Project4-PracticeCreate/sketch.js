@@ -16,7 +16,9 @@ function setup() {
 
 //  The draw function is called @ 30 fps
 function draw() {
-  //background(5, 5, 5, 10);
+  if(mouseIsPressed){
+    background(5, 5, 5);
+  }
   runBoids();
 }
 function loadBoids(n, o){
