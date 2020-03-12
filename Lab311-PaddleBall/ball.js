@@ -63,19 +63,29 @@ class Ball{
  }//***************************************************************
 
  isColliding(){
-    if(this.loc.x > paddle.loc.x - paddle.w/2 && this.loc.x < paddle.loc.x + paddle.w/2 && this.loc.y > paddle.loc.y - paddle.h/2 && this.loc.y < paddle.loc.y + paddle.h/2){
-        return true
-       }
+   if(this.id<0){
+     if(this.loc.x > paddle.loc.x - paddle.w/2 && this.loc.x < paddle.loc.x + paddle.w/2 && this.loc.y > paddle.loc.y - paddle.h/2 && this.loc.y < paddle.loc.y + paddle.h/2){
+         return true
+     }
+   }else if (this.id%2 === 0) {
+     if(this.loc.x > paddle.loc.x - paddle.w/2 && this.loc.x < paddle.loc.x + paddle.w/2 && this.loc.y > paddle.loc.y - paddle.h/2 && this.loc.y < paddle.loc.y + paddle.h/2 && this.vel.y<0){
+         return true
+     }
+   }else {
+     if(this.loc.x > paddle.loc.x - paddle.w/2 && this.loc.x < paddle.loc.x + paddle.w/2 && this.loc.y > paddle.loc.y - paddle.h/2 && this.loc.y < paddle.loc.y + paddle.h/2 && this.vel.y>0){
+         return true
+     }
+   }
   }//checks if the ball is colliding with the paddle
 
   remove(){
     for(var i = balls.length-1; i>=0; i--){
       if(balls[i].isColliding()){
-        if(balls[i].id === -1){
-          gameState = 1
-        }
         balls.splice(i, 1);
       }
+    }
+    if(mainBall.isColliding()){
+      gameState = 1
     }
   }//removes balls that touch the paddle from the array.
 }//  end Ball class
