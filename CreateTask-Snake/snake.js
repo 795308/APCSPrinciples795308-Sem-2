@@ -35,8 +35,13 @@ class Snake{
     if(this.tangle() === true){
       gameState = 3;
     }//ends game when tangle is true
-    if(this.head.x === food.loc.x && this.head.y === food.loc.y){
-      this.createSegment();//create new body segment when snake gets to food
+    for(var i = 0; i < food.length; i++){
+      if(this.head.x === food[i].loc.x && this.head.y === food[i].loc.y){
+        this.createSegment();//create new body segment when snake gets to food
+        if(hard === true){
+          moveBlockers();
+        }
+      }
     }
   }
   tangle(){
@@ -53,6 +58,11 @@ class Snake{
       if(this.head.x === this.body[i].x && this.head.y === this.body[i].y){
         return true
       }//returns true if snake hits hits its body
+    }
+    for(var i = 0; i < blockers.length; i++){
+      if(this.head.x === blockers[i].loc.x && this.head.y === blockers[i].loc.y){
+        return true
+      }//returns true if snake hits hits a blocker
     }
   }//tangle end
   createSegment(){

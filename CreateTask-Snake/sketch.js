@@ -2,22 +2,20 @@
 // 	11/25/19
 //  This is a comment
 //  The setup function function is called once when your program begins
-var img;
 var gameState = 1;//controls gameState
 var snake;//the snake
-var food;//the food
+var food = [];//the food
+var blockers = [];
 var w = 25;//the width of the grid boxes
 var buttons = [];//the array of buttons
-function preload(){
-  img = loadImage('apple.png');
-}
+var hard = false;
 function setup() {
   var cnv = createCanvas(800, 800);
   cnv.position((windowWidth-width)/2, 30);
 
   background(5, 5, 5);
   fill(200, 30, 150);
-  loadObjects();//loads everything when the game starts
+  loadObjects(1, 5);//loads everything when the game starts
   frameRate(15);//speed prgram runs
 }
 
@@ -30,8 +28,10 @@ function draw() {
     textSize(100);
     textAlign(CENTER);
     text("SNAKE", 400, 300);//displays game name
-    buttons[0].run();//runs start button
-    buttons[1].run();//runs instructions buttons
+    buttons[0].run();//runs easy button
+    buttons[1].run();//runs medium button
+    buttons[2].run();//runs hard button
+    buttons[3].run();//runs instructions buttons
     snake.head.x = width/w/2;//resets snake head location to center
     snake.head.y = height/w/2;
     snake.vel.x = 0;//resets snake velocity to zero
@@ -44,6 +44,8 @@ function draw() {
     textSize(25);
     text("Score = " + snake.body.length, 10, 30);//display score;
   }else if (gameState === 3) {
+    food.splice(0, food.length);
+    blockers.splice(0, blockers.length);
     background (5,5,5,20);//makes game fade out
     textAlign(CENTER);
     fill(255,0,0);
@@ -52,10 +54,10 @@ function draw() {
     fill(255);
     textSize(40);
     text("FINAL SCORE = " + snake.body.length, 400, 300);//displays final score
-    buttons[2].run();//runs replay button
+    buttons[4].run();//runs replay button
   }else if (gameState === 4) {
     background(5,5,5);
-    buttons[3].run();//runs back button
+    buttons[5].run();//runs back button
     textAlign(CENTER);
     textSize(60);
     fill(255);
@@ -70,16 +72,31 @@ function draw() {
 }
 
 function runObjects(){
+  rectMode(CORNER);
+  for(var i = 0; i < blockers.length; i++){
+    blockers[i].run();
+  }
   snake.run();//runs snake
-  food.run();//runs food
+  for(var i = 0; i < food.length; i++){
+    food[i].run();
+  }
 }//runs the snake and the food
 
 function loadObjects(){
-  for(var i = 0; i < 4; i++){
+  for(var i = 0; i < 6; i++){
     buttons[i] = new Button(i);
   }//loads buttons into array
   snake = new Snake();//creates snake
-}//loads the snake and the food
+}//loads the snake and the buttons
+
+function loadArrays(f, b){
+  for(var i = 0; i < f; i++){
+    food[i] = new Food(0, 0, i);//creates food in random position
+  }
+  for(var i = 0; i < b; i++){
+    blockers[i] = new Blocker(0, 0, i);
+  }
+}//loads blockers and food
 
 function keyPressed(){//detects when keys are pressed to control the snake
   if(keyIsDown(65) && snake.vel.x ==! 1){
@@ -90,5 +107,16 @@ function keyPressed(){//detects when keys are pressed to control the snake
     snake.vel = createVector(0, 1);
   }else if (keyIsDown(68) && snake.vel.x ==! -1) {
     snake.vel = createVector(1, 0);
+  }
+}
+
+function moveBlockers(){
+  for(var i = 0; i<blockers.length; i++){
+    blockers[i].loc.x = Math.floor(random(width/w - 1))
+    blockers[i].loc.y = Math.floor(random(width/w - 1));//moves blockers to random position
+    while(blockers[i].overlapping() === true || snake.head.x-1 <= blockers[i].loc.x && snake.head.x+1 >= blockers[i].loc.x && snake.head.y-1 <= blockers[i].loc.y && snake.head.y+1 >= blockers[i].loc.y){
+      blockers[i].loc.x = Math.floor(random(width/w - 1));
+      blockers[i].loc.y = Math.floor(random(width/w - 1));
+    }
   }
 }
