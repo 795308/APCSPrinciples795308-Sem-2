@@ -1,5 +1,5 @@
-//Nico McCarten
-//3/18/20
+// Nico McCarten
+// 4/8/20
 class Blocker{
   constructor(x, y, i){
     this.loc = createVector(x, y);//location of blocker
